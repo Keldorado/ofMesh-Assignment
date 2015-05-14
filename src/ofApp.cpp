@@ -15,12 +15,12 @@ void ofApp::setup(){
     //applys a threshold so that we only create a vertex at the pixel locations where the intensity of the color is greater than our designated value.
     
     float time = ofGetElapsedTimef();	//Get time
-    float intensityThreshold = 1.0;
+    float intensityThreshold = 1.0; //defines what points get a vertex
     int w = image.getWidth(); //looped through each pixel in the image using getWidth and getHeight
     int h = image.getHeight();
-    for (int x=0; x<w; ++x) {
-        for (int y=0; y<h; ++y) {
-            ofColor c = image.getColor(x, y);
+    for (int x=0; x<w; ++x) { //for loop
+        for (int y=0; y<h; ++y) { //for loop
+            ofColor c = image.getColor(x, y); //defines color
             float intensity = c.getLightness(); //checked the intensity of each pixel's color
             if (intensity >= intensityThreshold) { //create a vertex at pixel location and colored it with the pixel's color
                 float saturation = c.getSaturation(); //use the saturation of the color to change the z-coordinate.
@@ -65,7 +65,7 @@ void ofApp::update(){
         ofVec3f vert = mesh.getVertex(i); //We get the location of a vertex and store it in a variable called ver
         
         float time = ofGetElapsedTimef(); //find the time passed
-        float timeScale = 15.0; //changes the speed of the moving vertices
+        float timeScale = 3.0; //changes the size of the triangles
         float displacementScale = 17; //changes how big the triangles are
         ofVec3f timeOffsets = offsets[i]; //These values allow us to move each vertex in a random x, y and z direction seemingly independently of the movement of the other vertices.
         
@@ -93,10 +93,10 @@ void ofApp::draw(){
     ofColor edgeColor(0, 0, 0); //define edge color
     ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR); //draws the gradient
     
-    easyCam.begin();
-    ofPushMatrix();
-    ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
-    mesh.draw();
-    ofPopMatrix();
-    easyCam.end();
+    easyCam.begin(); //starts the easy cam
+    ofPushMatrix(); //pushes the matrix
+    ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2); //allows us to translate the landscape
+    mesh.draw(); //draws the mesh
+    ofPopMatrix(); //pops the matrix
+    easyCam.end(); //ends the easy cam 
 }
